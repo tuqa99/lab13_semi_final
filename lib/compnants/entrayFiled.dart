@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/Adminpage.dart';
 import '../screens/Firstscreen.dart';
+import '../screens/userpage.dart';
 
 class NameEnter extends StatelessWidget {
   NameEnter({super.key});
@@ -62,26 +64,44 @@ class NameEnter extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () async {
-              try {
-                var auth = FirebaseAuth.instance;
+              if (_emailController.text.contains('@admin')) {
+                try {
+                  var authenticationobject = FirebaseAuth.instance;
 
-                UserCredential myUser =
-                    await auth.createUserWithEmailAndPassword(
-                        email: _emailController.text,
-                        password: _passwordController.text);
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("added successfully")));
+                  UserCredential myUser =
+                      await authenticationobject.createUserWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text);
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text("Welcom Back")));
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return AdminPage();
+                    },
+                  ));
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("sorry your data is not correct")));
+                }
+              } else {
+                try {
+                  var authenticationobject = FirebaseAuth.instance;
 
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return FirstScreen();
-                  },
-                ));
-              } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("sorry there is an error")));
-                print(_emailController.text);
-                print(_passwordController.text);
+                  UserCredential myUser =
+                      await authenticationobject.createUserWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text);
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text("Welcom Back")));
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return UserPage();
+                    },
+                  ));
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("sorry your data is not correct")));
+                }
               }
             },
             child: Container(
@@ -130,39 +150,20 @@ class EmailEnter extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+                hintText: 'Enter Password',
+              ),
+            ),
+          ),
           TextField(
               controller: _emailController,
               obscureText: false,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
-                  filled: true))
-        ],
-      ),
-    );
-  }
-}
-
-class PasswordEnter extends StatelessWidget {
-  PasswordEnter({super.key});
-  TextEditingController _passwordController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Password',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextField(
-              controller: _passwordController,
-              obscureText: true,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   fillColor: Color(0xfff3f3f4),

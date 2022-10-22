@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lab_13_1/compnants/signinwithgoogle.dart';
 import '../compnants/entrayFiled.dart';
 import 'LoginScreen.dart';
 
@@ -145,12 +146,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ]),
         ),
       ],
-    );
-  }
-
-  Widget _emailPasswordWidget() {
-    return Column(
-      children: <Widget>[NameEnter(), EmailEnter(), PasswordEnter()],
     );
   }
 

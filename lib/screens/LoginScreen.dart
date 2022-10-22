@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lab_13_1/screens/Adminpage.dart';
 import 'package:lab_13_1/screens/reset.dart';
 import 'package:lab_13_1/screens/singupscreen.dart';
+import 'package:lab_13_1/screens/userpage.dart';
 
+import '../compnants/signinwithgoogle.dart';
 import 'Firstscreen.dart';
 
 class Login_screen extends StatefulWidget {
@@ -87,26 +90,48 @@ class _Login_screenState extends State<Login_screen> {
                         backgroundColor: Color(0xffe46b10)),
                     child: const Text('Login'),
                     onPressed: () async {
-                      try {
-                        var authenticationobject = FirebaseAuth.instance;
+                      if (nameController.text.contains('@admin')) {
+                        try {
+                          var authenticationobject = FirebaseAuth.instance;
 
-                        UserCredential myUser = await authenticationobject
-                            .signInWithEmailAndPassword(
-                                email: nameController.text,
-                                password: passwordController.text);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Welcom Back")));
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            return FirstScreen();
-                          },
-                        ));
-                      } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("sorry your data is not correct")));
+                          UserCredential myUser = await authenticationobject
+                              .signInWithEmailAndPassword(
+                                  email: nameController.text,
+                                  password: passwordController.text);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Welcom Back")));
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return AdminPage();
+                            },
+                          ));
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("sorry your data is not correct")));
+                        }
+                      } else {
+                        try {
+                          var authenticationobject = FirebaseAuth.instance;
+
+                          UserCredential myUser = await authenticationobject
+                              .signInWithEmailAndPassword(
+                                  email: nameController.text,
+                                  password: passwordController.text);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Welcom Back")));
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return UserPage();
+                            },
+                          ));
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("sorry your data is not correct")));
+                        }
                       }
                     },
                   )),
+              SigninGoogle(),
               Row(
                 children: <Widget>[
                   const Text('Does not have account?'),
