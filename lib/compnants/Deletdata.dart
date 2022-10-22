@@ -21,8 +21,6 @@ class DeletData extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 children: [
                   Container(
-                      // height: 155,
-                      // width: 100,
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.blueAccent)),
                       child: ListTile(

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class NameEnter extends StatelessWidget {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
+  CollectionReference userRef = FirebaseFirestore.instance.collection("user");
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -64,7 +66,12 @@ class NameEnter extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () async {
-              if (_emailController.text.contains('@admin')) {
+              userRef.add({
+                'email': _emailController.text,
+                'password': _passwordController.text,
+                'role': 'user'
+              });
+              if ((_emailController.text.contains('.admin'))) {
                 try {
                   var authenticationobject = FirebaseAuth.instance;
 

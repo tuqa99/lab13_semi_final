@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lab_13_1/screens/Adminpage.dart';
@@ -18,7 +19,7 @@ class Login_screen extends StatefulWidget {
 class _Login_screenState extends State<Login_screen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  CollectionReference userRef = FirebaseFirestore.instance.collection("user");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +91,7 @@ class _Login_screenState extends State<Login_screen> {
                         backgroundColor: Color(0xffe46b10)),
                     child: const Text('Login'),
                     onPressed: () async {
-                      if (nameController.text.contains('@admin')) {
+                      if ((nameController.text.contains('.admin'))) {
                         try {
                           var authenticationobject = FirebaseAuth.instance;
 

@@ -78,3 +78,12 @@ class _AddSubjectState extends State<AddSubject> {
     ));
   }
 }
+
+class Adduser extends StatelessWidget {
+  const Adduser({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}

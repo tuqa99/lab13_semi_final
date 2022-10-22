@@ -108,9 +108,12 @@ class UpdateData extends StatelessWidget {
                                                       number_students,
                                                   'image': image,
                                                 });
-                                                _namecontroller.text = '';
-                                                _numbercontroller.text = '';
-                                                _imagecontroller.text = '';
+                                                _namecontroller.text =
+                                                    "${snapshot.data!.docs[i]['instructorname']}";
+                                                _numbercontroller.text =
+                                                    "${snapshot.data!.docs[i]['number_students']}";
+                                                _imagecontroller.text =
+                                                    "${snapshot.data!.docs[i]['image']}";
                                                 Navigator.of(context).pop();
                                               }
                                             },

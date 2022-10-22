@@ -9,7 +9,10 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.yellowAccent),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(252, 40, 146, 66),
+        title: Text('User page'),
+      ),
       body: Container(
         child: FutureBuilder<QuerySnapshot>(
           builder: (context, snapshot) {
